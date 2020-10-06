@@ -10,9 +10,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.button).setOnClickListener({
+        findViewById<Button>(R.id.button1).setOnClickListener{
             CountDownAlert(this).show()
-        })
+        }
+        findViewById<Button>(R.id.button2).setOnClickListener {
+            CountDownAlert(this, 5).show()
+        }
 
     }
 }

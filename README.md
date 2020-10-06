@@ -1,1 +1,3 @@
-work in progress
+# CountDownAlert
+
+[sample](untitled.gif)

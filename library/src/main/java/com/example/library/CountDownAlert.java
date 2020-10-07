@@ -9,14 +9,12 @@ import android.widget.TextView;
 public class CountDownAlert extends Dialog {
 
     private int i = 0;
+    private Runnable completion;
+    private TextView countTv;
 
     public CountDownAlert(Context context) {
-        this(context, 3);
-    }
-
-    public CountDownAlert(Context context, int initialNumber) {
         super(context, R.style.count_dialog);
-        i = initialNumber;
+        i = 3;
         setCancelable(true);
         setCanceledOnTouchOutside(false);
     }
@@ -24,20 +22,33 @@ public class CountDownAlert extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.count_dialog);
-        final TextView tv = findViewById(R.id.count_tv);
+        countTv = findViewById(R.id.count_tv);
+    }
 
+    public CountDownAlert setInitialNumber(int number) {
+        i = number;
+        return this;
+    }
+
+    public CountDownAlert setCompletion(Runnable runnable) {
+        completion = runnable;
+        return this;
+    }
+
+    public void show() {
         new CountDownTimer(1000 * i, 1000) {
             public void onTick(long millisUntilFinished) {
                 if (i != 0) {
-                    tv.setText(String.valueOf(i));
+                    countTv.setText(String.valueOf(i));
                     --i;
                 }
             }
 
             public void onFinish() {
                 dismiss();
+                if (completion != null) completion.run();
             }
         }.start();
-
+        super.show();
     }
 }

@@ -1,4 +1,5 @@
 # CountDownAlert
+[![](https://jitpack.io/v/ochim/CountDownAlert.svg)](https://jitpack.io/#ochim/CountDownAlert)
 
 ## Getting started
 Step 1. Add the JitPack repository to your build file
@@ -14,13 +15,13 @@ allprojects {
 Step 2. Add the dependency
 ```
 dependencies {
-    implementation 'com.github.ochim:CountDownAlert:0.1'
+    implementation 'com.github.ochim:CountDownAlert:0.2'
 }
 ```
 
 ## Usage
 ```
-import com.example.library.CountDownAlert
+import com.ochi.android.CountDownAlert
 
 //example
 CountDownAlert(this).show()

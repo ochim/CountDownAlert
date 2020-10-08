@@ -1,4 +1,4 @@
-package com.example.library;
+package com.ochi.android;
 
 import android.app.Dialog;
 import android.content.Context;

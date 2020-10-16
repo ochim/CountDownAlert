@@ -2,20 +2,23 @@ package com.example.countdownalert
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.countdownalert.databinding.ActivityMainBinding
 import com.ochi.android.CountDownAlert
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        findViewById<Button>(R.id.button1).setOnClickListener{
+        binding.button1.setOnClickListener{
             CountDownAlert(this).show()
         }
 
-        findViewById<Button>(R.id.button2).setOnClickListener {
+        binding.button2.setOnClickListener {
             it.visibility = View.INVISIBLE
             CountDownAlert(this).setInitialNumber(5).setCompletion(Runnable {
                it.visibility = View.VISIBLE

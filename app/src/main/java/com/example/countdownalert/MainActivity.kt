@@ -1,8 +1,10 @@
 package com.example.countdownalert
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.example.countdownalert.databinding.ActivityMainBinding
 import com.ochi.android.CountDownAlert
 
@@ -15,14 +17,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.button1.setOnClickListener{
-            CountDownAlert(this).show()
+            CountDownDialogFragment().show(supportFragmentManager, "a")
         }
 
         binding.button2.setOnClickListener {
             it.visibility = View.INVISIBLE
-            CountDownAlert(this).setInitialNumber(5).setCompletion(Runnable {
-               it.visibility = View.VISIBLE
-            }).show()
+            CountDownDialogFragment(5, {
+                it.visibility = View.VISIBLE
+            }).show(supportFragmentManager, "b")
         }
+    }
+}
+
+class CountDownDialogFragment(val initialNumber: Int=3 , val completion: Runnable?=null) : DialogFragment() {
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            CountDownAlert(it).setInitialNumber(initialNumber).setCompletion({
+                dismiss()
+                completion?.run()
+            })
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
 }

@@ -21,19 +21,23 @@ dependencies {
 
 ## Usage
 ```
+import android.app.Dialog
+import androidx.fragment.app.DialogFragment
 import com.ochi.android.CountDownAlert
 
+//reference: https://developer.android.com/guide/topics/ui/dialogs#DialogFragment
 //example
-CountDownAlert(this).show()
+class CountDownDialogFragment(val initialNumber: Int=3 , val completion: Runnable?=null) : DialogFragment() {
 
-//example
-CountDownAlert(this).setCompletion { ...
-}.show()
-
-//example
-CountDownAlert(this).setInitialNumber(5).setCompletion( { ...
-}).show()
-
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            CountDownAlert(it).setInitialNumber(initialNumber).setCompletion({
+                dismiss()
+                completion?.run()
+            })
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
+}
 ```
 
 ## License
